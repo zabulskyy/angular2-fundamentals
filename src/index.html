@@ -2,13 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Angular2Fundamentals</title>
+  <title>to do or not to do</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
   <base href="/">
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-  <app-root></app-root>
+<div class="container">
+  <nav class="navbar navbar-toggleable-md  navbar-inverse bg-primary">
+    <span class="navbar-brand" href="#">To do or not to do </span>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Log in</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+      </ul>
+      <span class="navbar-text">
+      a simple todo web application
+      </span>
+    </div>
+  </nav>
+  <br>
+  <div class="jumbotron" style="min-height: 500px">
+        <app-root></app-root>
+  </div>
+</div>
 </body>
 </html>
