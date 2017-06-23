@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
 import { Injectable } from '@angular/core';
 
 @Component({
@@ -25,19 +25,20 @@ import { Injectable } from '@angular/core';
 export class TaskComponent implements OnInit {
   @Input() text;
   @Input() num;
+  @Output() deleted: EventEmitter<number> = new EventEmitter<number>();
+
   decor = "none";
   done(){
-
+    this.deleted.emit(this.num);
   }
   strike(){
     if(this.decor == "none")
       this.decor = "line-through";
     else
       this.decor = "none";
+    alert(this.num);
   }
-
   constructor() {
-
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, Injectable} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,6 @@ import {Component, Inject} from '@angular/core';
         <input  class="form-control"  #taskText type="text" id="taskCreator" placeholder="Enter your task here">
         <button
           class="input-group-addon"
-          (keydown)="createTaskByKeydown(taskText.value, $event); taskText.value='' "
           (click)="createTask(taskText.value); taskText.value='' ">
           Create task
         </button>
@@ -18,34 +17,44 @@ import {Component, Inject} from '@angular/core';
     <div class="col-lg-6">
       <table class="table table-hover">
         <tbody>
-        <tr *ngFor = "let properties of this.tasksText" [id]= "properties[1]">
-          <app-task [text] = "properties[0]" [num]="properties[1]">
-          </app-task>
-        </tr>
-        </tbody>
+        <div class="col-lg-6">
+          <table class="table table-hover">
+            <tbody>
+            <tr *ngFor="let task of tasks">
+              <app-task
+                (deleted)="deleteTask($event)"
+                [text] = task.value
+                [num] = task.key>
+              </app-task>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </table>
     </div>
   `
-})
+})@Injectable()
 export class AppComponent {
 
-  tasksText = [];
+  tasks = [];
   number = 0;
 
   createTask(text){
     if (text != ""){
-      this.tasksText.push([text, this.number]);
+      this.tasks.push({
+        key: this.number,
+        value: text
+      });
       this.number++;
     }
   }
-  createTaskByKeydown(text, event){
-    console.log(event.keyCode);
-    if (text != "" && event.keyCode == 13){
-      this.tasksText.push([text, this.number]);
-      this.number++;
+  deleteTask(key){
+    for(let i=0; i < this.tasks.length; i++){
+      if (this.tasks[i].key == key){
+        this.tasks.splice(this.tasks.indexOf(this.tasks[i]), 1);
+      }
     }
   }
-
   title = 'app works';
   constructor(@Inject('task') public task) {
   }

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { SimpleFormComponent } from './simple-form/simple-form.component';
-import {MailService} from './mail.service';
 import { GeneratorComponent } from './generator/generator.component';
 import { TaskComponent } from './task/task.component';
 
@@ -19,6 +18,7 @@ import { TaskComponent } from './task/task.component';
   ],
   providers: [
     {provide:'task', useClass:TaskComponent},
+    {provide:'constr', useClass:AppComponent},
   ],
   bootstrap: [AppComponent]
 })
