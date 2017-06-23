@@ -1,6 +1,6 @@
 Files to review:
 
-src\app\app.module.ts
-src\app\task\task.component.ts
-src\app\app.component.ts
-src\index.html
+1. src\app\app.module.ts
+2. src\app\task\task.component.ts
+3. src\app\app.component.ts
+4. src\index.html
