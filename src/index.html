@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>to do or not to do</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
         integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
@@ -15,8 +16,13 @@
 <body>
 <div class="container">
   <nav class="navbar navbar-toggleable-md  navbar-inverse bg-primary">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <a class="navbar-brand" href="/"><b>To do or not to do </b></a>
-    <div class="collapse navbar-collapse" id="navbarText">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link" href="/">Home </a>
@@ -28,14 +34,14 @@
           <a class="nav-link" href="/">About</a>
         </li>
       </ul>
-      <span class="navbar-text">
+      <span class="navbar-text hidden-md-down">
       a simple todo web application
       </span>
     </div>
   </nav>
   <br>
   <div class="jumbotron" style="min-height: 500px">
-    <app-root></app-root>
+    <todo-root></todo-root>
   </div>
 </div>
 </body>

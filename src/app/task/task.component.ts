@@ -1,17 +1,20 @@
 import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
 
 @Component({
-  selector: 'app-task',
+  selector: 'todo-task',
   template: `
-    <td>
-      <input #taskCheckBox style="margin: 0;" class="form-check-input" type="checkbox" (click)="strike(taskCheckBox)">
+    <td style="cursor: move">
+      <span>&#9776;</span>
     </td>
     <td (click)="strike(taskCheckBox)" style="cursor: pointer">
+      <input #taskCheckBox style="margin: 0;" class="form-check-input" type="checkbox">
+    </td>
+    <td (click)="strike(taskCheckBox)" style="cursor: pointer; width: 100%;">
       <span [style.text-decoration]="decor"> {{text}} </span>
     </td>
     <td>
-      <div (click)="done()">
-        <span aria-hidden="true" style="cursor: pointer"> &#10006;</span>
+      <div (click)="done()" style="cursor: pointer">
+        <span aria-hidden="true"> &#10006;</span>
       </div>
     </td>
   `,
@@ -39,11 +42,11 @@ export class TaskComponent implements OnInit {
     /*
      * give a text in task line-through decoration or remove this decoration by defining variable decor
      */
-    if (this.decor == 'none'){
+    if (this.decor == 'none') {
       checkbox.checked = true;
       this.decor = 'line-through';
     }
-    else{
+    else {
       checkbox.checked = false;
       this.decor = 'none';
     }

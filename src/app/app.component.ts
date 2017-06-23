@@ -1,7 +1,7 @@
 import {Component, Injectable} from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'todo-root',
   template: `
     <div class="col-lg-6">
       <div class="input-group">
@@ -15,7 +15,7 @@ import {Component, Injectable} from '@angular/core';
         </button>
       </div>
     </div>
-
+    <br>
     <div class="col-lg-6">
       <table class="table table-hover">
         <tbody>
@@ -26,11 +26,11 @@ import {Component, Injectable} from '@angular/core';
                 it calls a single function with @Output to this component (delete)
                 a loop, which goes throug tasks array and creates elements
             -->
-            <app-task
+            <todo-task
               (deleteTask)="deleteTask($event)"
               [text]=task.value
               [num]=task.key>
-            </app-task>
+            </todo-task>
           </tr>
           </tbody>
         </table>
