@@ -1,13 +1,12 @@
 import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
-import {Injectable} from '@angular/core';
 
 @Component({
   selector: 'app-task',
   template: `
     <td>
-      <input style="margin: 0;" class="form-check-input" type="checkbox" (click)="strike()">
+      <input #taskCheckBox style="margin: 0;" class="form-check-input" type="checkbox" (click)="strike(taskCheckBox)">
     </td>
-    <td (click)="strike()" style="cursor: pointer">
+    <td (click)="strike(taskCheckBox)" style="cursor: pointer">
       <span [style.text-decoration]="decor"> {{text}} </span>
     </td>
     <td>
@@ -21,23 +20,33 @@ import {Injectable} from '@angular/core';
       display: inline;
     }
   `],
-}) @Injectable()
+})
 export class TaskComponent implements OnInit {
-  @Input() text;
-  @Input() num;
-  @Output() deleted: EventEmitter<number> = new EventEmitter<number>();
+  @Input() text;  // task's text
+  @Input() num;  // tasks unique number
+  @Output() deleteTask: EventEmitter<number> = new EventEmitter<number>();
 
-  decor = 'none';
+  decor = 'none';  // variable to define line-through text in task
 
   done() {
-    this.deleted.emit(this.num);
+    /*
+     * send message to a parent (AppComponent) to delete task
+     */
+    this.deleteTask.emit(this.num);
   }
 
-  strike() {
-    if (this.decor == 'none')
+  strike(checkbox) {
+    /*
+     * give a text in task line-through decoration or remove this decoration by defining variable decor
+     */
+    if (this.decor == 'none'){
+      checkbox.checked = true;
       this.decor = 'line-through';
-    else
+    }
+    else{
+      checkbox.checked = false;
       this.decor = 'none';
+    }
   }
 
   constructor() {
