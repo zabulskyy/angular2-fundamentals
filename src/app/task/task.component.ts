@@ -10,8 +10,8 @@ import {Component, Input, OnInit, EventEmitter, Output, Injectable} from '@angul
       <div (click)="strike(taskCheckBox)" style="cursor: pointer" class="cell">
         <input #taskCheckBox style="margin: 0;" class="form-check-input" type="checkbox">
       </div>
-      <div (click)="strike(taskCheckBox)" style="cursor: pointer; width: 100%;" class="cell" >
-        <span [style.text-decoration]="decor" > {{text}} </span>
+      <div (click)="strike(taskCheckBox)" style="cursor: pointer; width: 100%;" class="cell">
+        <span [style.text-decoration]="decor"> {{text}} </span>
       </div>
       <div class="cell x-mark" (click)="done()" style="cursor: pointer">
         <span aria-hidden="true"> &#10006;</span>
@@ -43,21 +43,20 @@ import {Component, Input, OnInit, EventEmitter, Output, Injectable} from '@angul
       display: inline;
     }
   `],
-})@Injectable()
+}) @Injectable()
 export class TaskComponent implements OnInit {
   @Input() text;  // task's text
-  @Input()  num;  // tasks unique number
+  @Input() index;  // tasks unique number
+  @Input() decor = 'none';  // variable to define line-through text in task
 
   @Output() deleteTask: EventEmitter<number> = new EventEmitter<number>();
 
-
-  decor = 'none';  // variable to define line-through text in task
 
   done() {
     /*
      * send message to a parent (AppComponent) to delete task
      */
-    this.deleteTask.emit(this.num);
+    this.deleteTask.emit(this.index);
   }
 
   strike(checkbox) {

@@ -25,7 +25,8 @@ import {TaskComponent} from 'app/task/task.component';
         *ngFor="let element of tasks"
         (deleteTask)="deleteTask($event)"
         [text]="element.text"
-        [num]="element.num">
+        [index]="element.index"
+        [decor]="element.decor">
         {{element}}
       </todo-task>
     </div>
@@ -41,17 +42,14 @@ export class TaskManager {
 
   tasks = [];
   /*
-   * container of our TODOes
-   * format:
-   * [
-   * {key: 0, value: "fix car"},
-   * {key: 1, value: "buy some milk"}, ...
-   * ]
+   * container of task objects
+   * tasks are rendered by this array and *ngFor
    * */
   number = 0;
   /*
    * index for our 'to do' list elements
    * each new element has its own unique index
+   * deleting tasks are not decreasing this number
    * */
 
   createTaskWithButton(text, taskInput) {
@@ -62,14 +60,14 @@ export class TaskManager {
      * */
 
     if (text != '') {
-      let inst_num = this.number;
-      let inst_text = text;
-      let inst_task = new TaskComponent();
-      inst_task.num = inst_num;
-      inst_task.text = inst_text;
-      this.tasks.push(inst_task);
+      let inst_index = this.number;  // current number of created (AND DELETED) tasks
+      let inst_text = text;  // given text from input
+      let inst_task = new TaskComponent();  // creating a new task component
+      inst_task.index = inst_index;  // giving task properties
+      inst_task.text = inst_text;  // giving task properties
+      this.tasks.push(inst_task);  // push task into tasks list
       this.number++;
-      taskInput.value = '';  // clean input field
+      taskInput.value = '';  // clean up input field
     }
   }
 
@@ -79,25 +77,26 @@ export class TaskManager {
      * the same as create task, but with pressing Enter key button
      * */
     if (event.keyCode == 13 && text != '') {
-      let inst_num = this.number;
-      let inst_text = text;
-      let inst_task = new TaskComponent();
-      inst_task.num = inst_num;
-      inst_task.text = inst_text;
-      this.tasks.push(inst_task);
+      let inst_index = this.number;  // current number of created (AND DELETED) tasks
+      let inst_text = text;  // given text from input
+      let inst_task = new TaskComponent();  // creating a new task component
+      inst_task.index = inst_index;  // giving task properties
+      inst_task.text = inst_text;  // giving task properties
+      this.tasks.push(inst_task);  // push task into tasks list
       this.number++;
-      taskInput.value = '';  // clean input field
+      taskInput.value = '';  // clean up input field
     }
   }
 
-  deleteTask(num) {
+  deleteTask(index) {
     /*
      * seek for element in tasks array with given key and remove it from an array
      * key is a number which must be in tasks array
      * */
     for (let i = 0; i < this.tasks.length; i++) {
-      if (this.tasks[i].num == num) {
+      if (this.tasks[i].index == index) {
         this.tasks.splice(this.tasks.indexOf(this.tasks[i]), 1);
+        break;
       }
     }
   }
@@ -114,18 +113,22 @@ export class TaskManager {
   private reorganize() {
     /*
      * return tasks list proper order by visible task items
+     * drag & drop creates new tasks order, so we have to refresh it to save in tasks list
      * */
-    let visible_tasks = document.getElementsByTagName('todo-task');
-    let new_tasks_list = [];
+    let visible_tasks = document.getElementsByTagName('todo-task');  // find all tasks in new order
+    let new_tasks_list = [];  // new task list; there will be pushed tasks in new order
     for (let i = 0; i < visible_tasks.length; i++) {
-      let inst_num = visible_tasks[i].getAttribute("ng-reflect-num");
-      let inst_text = visible_tasks[i].getAttribute("ng-reflect-text");
+      let inst_index = visible_tasks[i].getAttribute('ng-reflect-index');
+      let inst_text = visible_tasks[i].getAttribute('ng-reflect-text');
+      let inst_decor = visible_tasks[i].getAttribute('ng-reflect-decor');
       let inst_task = new TaskComponent();
-      inst_task.num = inst_num;
+      inst_task.index = inst_index;
       inst_task.text = inst_text;
+      inst_task.decor = inst_decor;
       new_tasks_list.push(inst_task);
     }
     this.tasks = new_tasks_list.slice(0, new_tasks_list.length - 1);
+    //  drag & drop  creates a new task in the end of current, it is duplicated, so we don't need it
   }
 
 }
