@@ -1,33 +1,55 @@
-import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
+import {Component, Input, OnInit, EventEmitter, Output, Injectable} from '@angular/core';
 
 @Component({
   selector: 'todo-task',
   template: `
-    <td style="cursor: move">
-      <span>&#9776;</span>
-    </td>
-    <td (click)="strike(taskCheckBox)" style="cursor: pointer">
-      <input #taskCheckBox style="margin: 0;" class="form-check-input" type="checkbox">
-    </td>
-    <td (click)="strike(taskCheckBox)" style="cursor: pointer; width: 100%;">
-      <span [style.text-decoration]="decor"> {{text}} </span>
-    </td>
-    <td>
-      <div (click)="done()" style="cursor: pointer">
+    <div class="line">
+      <div style="cursor: move" class="cell">
+        <span>&#9776;</span>
+      </div>
+      <div (click)="strike(taskCheckBox)" style="cursor: pointer" class="cell">
+        <input #taskCheckBox style="margin: 0;" class="form-check-input" type="checkbox">
+      </div>
+      <div (click)="strike(taskCheckBox)" style="cursor: pointer; width: 100%;" class="cell" >
+        <span [style.text-decoration]="decor" > {{text}} </span>
+      </div>
+      <div class="cell x-mark" (click)="done()" style="cursor: pointer">
         <span aria-hidden="true"> &#10006;</span>
       </div>
-    </td>
+    </div>
   `,
   styles: [`
+    .x-mark:hover {
+      color: crimson;
+    }
+
+    .line {
+      background: #fbfbfb;
+      height: 48px;
+      padding: 12px;
+    }
+
+    .line:hover {
+      background: ghostwhite;
+    }
+
+    .cell {
+      padding: 0 12px 0 12px;
+      display: table-cell;
+      vertical-align: inherit;
+    }
+
     h4 {
       display: inline;
     }
   `],
-})
+})@Injectable()
 export class TaskComponent implements OnInit {
   @Input() text;  // task's text
-  @Input() num;  // tasks unique number
+  @Input()  num;  // tasks unique number
+
   @Output() deleteTask: EventEmitter<number> = new EventEmitter<number>();
+
 
   decor = 'none';  // variable to define line-through text in task
 
@@ -53,6 +75,7 @@ export class TaskComponent implements OnInit {
   }
 
   constructor() {
+
   }
 
   ngOnInit() {

@@ -1,22 +1,26 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
-import {AppComponent} from './app.component';
+import {TaskManager} from './task-manager/task-manager';
 import {TaskComponent} from './task/task.component';
+import {LoginSystemComponent } from './login-system/login-system.component';
+import {DragulaModule} from 'ng2-dragula';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    TaskComponent
+    TaskManager,
+    TaskComponent,
+    LoginSystemComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    DragulaModule
   ],
   providers: [
     {provide: 'task', useClass: TaskComponent},
-    {provide: 'constr', useClass: AppComponent},
+    {provide: 'constr', useClass: TaskManager},
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [TaskManager]
 })
 export class AppModule {
 }
