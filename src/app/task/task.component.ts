@@ -43,7 +43,9 @@ import {Component, Input, OnInit, EventEmitter, Output, Injectable} from '@angul
       display: inline;
     }
   `],
-}) @Injectable()
+})
+
+@Injectable()
 export class TaskComponent implements OnInit {
   @Input() text;  // task's text
   @Input() index;  // tasks unique number

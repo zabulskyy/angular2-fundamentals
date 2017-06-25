@@ -45,6 +45,7 @@ export class TaskManager {
    * container of task objects
    * tasks are rendered by this array and *ngFor
    * */
+
   number = 0;
   /*
    * index for our 'to do' list elements
