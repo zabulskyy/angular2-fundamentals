@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
-import {TaskManager} from './task-manager/task-manager';
+import {TaskManager} from './root';
 import {TaskComponent} from './task/task.component';
 import {LoginSystemComponent } from './login-system/login-system.component';
 import {DragulaModule} from 'ng2-dragula';

@@ -1,9 +1,8 @@
-import {Component, Inject, Injectable} from '@angular/core';
+import {Component,Injectable} from '@angular/core';
 import {DragulaService} from 'ng2-dragula';  // service to provide drag and drop
-import {TaskComponent} from 'app/task/task.component';
 
 @Component({
-  selector: 'todo-task-manager',
+  selector: 'todo-root',
   template: `
     <div class="input-group" style="border-radius: 5px">
       <input
@@ -26,8 +25,7 @@ import {TaskComponent} from 'app/task/task.component';
         (deleteTask)="deleteTask($event)"
         [text]="element.text"
         [index]="element.index"
-        [decor]="element.decor">
-        {{element}}
+        [decor]="element.decoration">
       </todo-task>
     </div>
   `
@@ -53,6 +51,7 @@ export class TaskManager {
    * deleting tasks are not decreasing this number
    * */
 
+
   createTaskWithButton(text, taskInput) {
     /*
      * text is text, given from input, taskInput is an input object
@@ -61,12 +60,12 @@ export class TaskManager {
      * */
 
     if (text != '') {
-      let inst_index = this.number;  // current number of created (AND DELETED) tasks
-      let inst_text = text;  // given text from input
-      let inst_task = new TaskComponent();  // creating a new task component
-      inst_task.index = inst_index;  // giving task properties
-      inst_task.text = inst_text;  // giving task properties
-      this.tasks.push(inst_task);  // push task into tasks list
+      let element = {
+        text: text,
+        index: this.number,
+        decoration: 'none'
+      };  // create an array of properties to our new task
+      this.tasks.push(element);  // push task into tasks list
       this.number++;
       taskInput.value = '';  // clean up input field
     }
@@ -78,12 +77,12 @@ export class TaskManager {
      * the same as create task, but with pressing Enter key button
      * */
     if (event.keyCode == 13 && text != '') {
-      let inst_index = this.number;  // current number of created (AND DELETED) tasks
-      let inst_text = text;  // given text from input
-      let inst_task = new TaskComponent();  // creating a new task component
-      inst_task.index = inst_index;  // giving task properties
-      inst_task.text = inst_text;  // giving task properties
-      this.tasks.push(inst_task);  // push task into tasks list
+      let element = {
+        text: text,
+        index: this.number,
+        decoration: 'none'
+      };  // create an array of properties to our new task
+      this.tasks.push(element);  // push task into tasks list
       this.number++;
       taskInput.value = '';  // clean up input field
     }
@@ -122,11 +121,13 @@ export class TaskManager {
       let inst_index = visible_tasks[i].getAttribute('ng-reflect-index');
       let inst_text = visible_tasks[i].getAttribute('ng-reflect-text');
       let inst_decor = visible_tasks[i].getAttribute('ng-reflect-decor');
-      let inst_task = new TaskComponent();
-      inst_task.index = inst_index;
-      inst_task.text = inst_text;
-      inst_task.decor = inst_decor;
-      new_tasks_list.push(inst_task);
+      let element = {
+        text: inst_text,
+        index: inst_index,
+        decoration: inst_decor
+      };  // create an array of properties to our new task
+      new_tasks_list.push(element);  // push task into tasks list
+      this.number++;
     }
     this.tasks = new_tasks_list.slice(0, new_tasks_list.length - 1);
     //  drag & drop  creates a new task in the end of current, it is duplicated, so we don't need it

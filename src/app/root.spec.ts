@@ -1,6 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 
-import { TaskManager } from './task-manager';
+import { TaskManager } from './root';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
